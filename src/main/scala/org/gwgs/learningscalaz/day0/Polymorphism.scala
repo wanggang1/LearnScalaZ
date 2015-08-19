@@ -1,6 +1,6 @@
 package org.gwgs.learningscalaz.day0
 
-object Polymorphism {
+object Polymorphism extends App {
   
   /*
    * Parametric polymorphism
@@ -39,15 +39,15 @@ object Polymorphism {
   /*
    * Monoid - Ad-hoc polymorphism continue
    */
-  sum(List(1, 2, 3, 4))
-  sum(List("1", "2", "3", "4"))
+  println("Sum Int: " + sum(List(1, 2, 3, 4)))
+  println("Sum String: " + sum(List("1", "2", "3", "4")))
   
   //explicitlt pass the monoid in
   val multiMonoid: Monoid[Int] = new Monoid[Int] { 
     def mappend(a: Int, b: Int): Int = a * b
     def mzero: Int = 1
   }
-  sum(List(1, 2, 3, 4))(multiMonoid)
+  println("Multiply Int: " + sum(List(1, 2, 3, 4))(multiMonoid))
   
   trait Monoid[A] {
     def mappend(a1: A, a2: A): A
@@ -75,5 +75,49 @@ object Polymorphism {
     val m = implicitly[Monoid[A]]
     xs.foldLeft(m.mzero)(m.mappend)
   }
+  
+  
+  /*
+   * FoldLeft
+   */
+  import scala.language.higherKinds
+  
+  trait FoldLeft[F[_]] {
+    def foldLeft[A, B](xs: F[A], b: B, f: (B, A) => B): B
+  }
+  object FoldLeft {
+    implicit val FoldLeftList: FoldLeft[List] = new FoldLeft[List] {
+      def foldLeft[A, B](xs: List[A], b: B, f: (B, A) => B) = xs.foldLeft(b)(f)
+    }
+  }
 
+  def sum1[M[_]: FoldLeft, A: Monoid](xs: M[A]): A = {
+    val m = implicitly[Monoid[A]]
+    val fl = implicitly[FoldLeft[M]]
+    fl.foldLeft(xs, m.mzero, m.mappend)
+  }
+  
+  println("Sum1 Int: " + sum1(List(1, 2, 3, 4)))
+  println("Sum1 String: " + sum(List("a", "b", "c")))
+  
+  
+  /*
+   * Method Injection
+   */
+  
+  trait MonoidOp[A] {
+    val F: Monoid[A]
+    val value: A
+    def |+|(a2: A) = F.mappend(value, a2)
+  }
+  
+  import scala.language.implicitConversions
+  
+  implicit def toMonoidOp[A: Monoid](a: A): MonoidOp[A] = new MonoidOp[A] {
+    val F = implicitly[Monoid[A]]
+    val value = a
+  }
+  
+  println("Method Injection on Int: " + (3 |+| 6))
+  println("Method Injection on String: " + ("X" |+| "y"))
 }
