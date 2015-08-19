@@ -1,0 +1,16 @@
+*.un~
+*.swp
+tags
+target
+project/boot
+.history
+project.vim
+*.old
+.idea
+.classpath
+.project
+.settings/
+.DS_Store
+.cache
+.worksheet/
+.classpath_nb
