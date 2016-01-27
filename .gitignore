@@ -12,5 +12,7 @@ project.vim
 .settings/
 .DS_Store
 .cache
+.cache-main
 .worksheet/
 .classpath_nb
+bin/
