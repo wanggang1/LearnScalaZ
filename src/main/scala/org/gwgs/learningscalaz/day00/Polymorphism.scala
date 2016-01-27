@@ -1,4 +1,4 @@
-package org.gwgs.learningscalaz.day0
+package org.gwgs.learningscalaz.day00
 
 object Polymorphism extends App {
   

@@ -1,10 +1,11 @@
-package org.gwgs.learningscalaz.day1
+package org.gwgs.learningscalaz.day01
 
 import scalaz._
 import Scalaz._
 
-object Typeclasses102 {
+object Typeclasses102Equal {
   
+  //Equal
   case class TrafficLight(name: String)
   
   val red = TrafficLight("red")
@@ -12,8 +13,5 @@ object Typeclasses102 {
   val green = TrafficLight("green")
   
   implicit val TrafficLightEqual: Equal[TrafficLight] = Equal.equal(_ == _)
-  
-  red === yellow
-  1 === 2
 
 }
