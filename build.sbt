@@ -4,14 +4,15 @@ organization := "org.gwgs"
 
 version := "1.0"
 
-scalaVersion := "2.11.5"
+scalaVersion := "2.11.7"
 
-val scalazVersion = "7.1.0"
+val scalazVersion = "7.2.0"
 
 libraryDependencies ++= Seq(
   "org.scalaz" %% "scalaz-core" % scalazVersion,
   "org.scalaz" %% "scalaz-effect" % scalazVersion,
-  "org.scalaz" %% "scalaz-typelevel" % scalazVersion,
+  "org.scalaz" %% "scalaz-concurrent" % scalazVersion,
+  "org.scalaz" %% "scalaz-iteratee" % scalazVersion,
   "org.scalaz" %% "scalaz-scalacheck-binding" % scalazVersion % "test",
   "org.scalatest" %% "scalatest" % "2.1.6" % "test",
   "junit" % "junit" % "4.11" % "test",
