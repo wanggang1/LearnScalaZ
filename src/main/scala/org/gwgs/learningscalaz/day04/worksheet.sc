@@ -25,6 +25,6 @@ object worksheet {
 	(CSome(0, "ho"): COption[String]) map {identity}
                                                   //> res1: org.gwgs.learningscalaz.day04.FunctorLaws.COption[String] = CSome(1,ho
                                                   //| )
-                                                  
+                                         
   ////////end of Day 4 Functor Laws //////////
 }

@@ -4,6 +4,7 @@ import org.gwgs.learningscalaz.day00.Polymorphism
 import org.gwgs.learningscalaz.day01.Typeclasses102Equal
 import org.gwgs.learningscalaz.day01.YesNoTypeclass
 import org.gwgs.learningscalaz.day02.ApplicativeOps
+import org.gwgs.learningscalaz.day03.TaggedType
 
 object Main {
   
@@ -22,6 +23,8 @@ object Main {
     YesNoTypeclass.demo
     
     ApplicativeOps.demo
+    
+    TaggedType.demo
   }
  
 }
