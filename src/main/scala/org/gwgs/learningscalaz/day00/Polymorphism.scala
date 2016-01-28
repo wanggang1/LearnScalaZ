@@ -1,17 +1,20 @@
 package org.gwgs.learningscalaz.day00
 
+import scala.language.higherKinds
+import scala.language.implicitConversions
+
 object Polymorphism extends App {
   
-  /*
+  /**
    * Parametric polymorphism
    */ 
+  def head[A](xs: List[A]): A = xs(0)
+  
   val numb = head(1 :: 2 :: Nil)
   val string = head("1" :: "2" :: Nil)
   
-  def head[A](xs: List[A]): A = xs(0)
   
-  
-  /*
+  /**
    * Subtype polymorphism
    * Not flexible since Plus needs to be mixed in at the time of defining the datatype,
    * so it can't work for Int and String
@@ -21,11 +24,10 @@ object Polymorphism extends App {
   }
   
   def plus[A <: Plus[A]](a1: A, a2: A): A = a1.plus(a2)
-  
-  
-  /*
+
+  /**
    * Ad-hoc polymorphism
-   *  - provide seperate function definitions for different types of A
+   *  - provide separate function definitions for different types of A
    *  - provide function definition to types (i.e., Int) without access to its source code
    *  - the function definitions can be enabled/disabled in different scopes
    */
@@ -35,20 +37,10 @@ object Polymorphism extends App {
   
   def plus[A: Plus1](a1: A, a2: A): A = implicitly[Plus1[A]].plus(a1, a2)
   
-  
-  /*
+  /**
    * Monoid - Ad-hoc polymorphism continue
+   * Monoid is a Semigroup(append) with a zero method
    */
-  println("Sum Int: " + sum(List(1, 2, 3, 4)))
-  println("Sum String: " + sum(List("1", "2", "3", "4")))
-  
-  //explicitlt pass the monoid in
-  val multiMonoid: Monoid[Int] = new Monoid[Int] { 
-    def mappend(a: Int, b: Int): Int = a * b
-    def mzero: Int = 1
-  }
-  println("Multiply Int: " + sum(List(1, 2, 3, 4))(multiMonoid))
-  
   trait Monoid[A] {
     def mappend(a1: A, a2: A): A
     def mzero: A 
@@ -65,8 +57,10 @@ object Polymorphism extends App {
     }
   }
   
-  /*
-   * What is [A: Monoid] here???
+  /**
+   * [A: Monoid] is shorthand syntax for introducing implicit parameters, called Context Bounds.
+   * Briefly, a method with a type parameter A that requires an implicit parameter of type M[A].
+   * To use this implicit parameter inside method:  val m = implicitly[M[A]]
    * 
    * A more understandable version:
    * def sum[A](xs: List[A])(implicit m: Monoid[A]): A = xs.foldLeft(m.mzero)(m.mappend)
@@ -76,12 +70,25 @@ object Polymorphism extends App {
     xs.foldLeft(m.mzero)(m.mappend)
   }
   
+  /**
+   * Method Injection
+   */
+  trait MonoidOp[A] {
+    val F: Monoid[A]
+    val value: A
+    def |+|(a2: A) = F.mappend(value, a2)
+  }
+  /**
+   * implicit conversion to inject method into closed classes
+   */
+  implicit def toMonoidOp[A: Monoid](a: A): MonoidOp[A] = new MonoidOp[A] {
+    val F = implicitly[Monoid[A]]
+    val value = a
+  }
   
-  /*
+  /**
    * FoldLeft
    */
-  import scala.language.higherKinds
-  
   trait FoldLeft[F[_]] {
     def foldLeft[A, B](xs: F[A], b: B, f: (B, A) => B): B
   }
@@ -97,27 +104,32 @@ object Polymorphism extends App {
     fl.foldLeft(xs, m.mzero, m.mappend)
   }
   
-  println("Sum1 Int: " + sum1(List(1, 2, 3, 4)))
-  println("Sum1 String: " + sum(List("a", "b", "c")))
-  
-  
-  /*
-   * Method Injection
+  /**
+   * Demo
    */
+  def demo = {
+    println("============== Polymorphism =============")
+    
+    //Monoid[Int], Monoid[String] in action
+    println("Sum Int: " + sum(List(1, 2, 3, 4)))
+    println("Sum String: " + sum(List("1", "2", "3", "4")))
+ 
+    //explicitly pass the monoid in
+    val multiMonoid: Monoid[Int] = new Monoid[Int] { 
+      def mappend(a: Int, b: Int): Int = a * b
+      def mzero: Int = 1
+    }
+    println("Multiply Int: " + sum(List(1, 2, 3, 4))(multiMonoid))
+
+    //FoldLeft for sum
+    println("FoldLeft Int: " + sum1(List(1, 2, 3, 4)))
+    println("FoldLeft String: " + sum1(List("a", "b", "c")))
   
-  trait MonoidOp[A] {
-    val F: Monoid[A]
-    val value: A
-    def |+|(a2: A) = F.mappend(value, a2)
+    //method injection
+    println("Method Injection on Int: " + (3 |+| 6))
+    println("Method Injection on String: " + ("W" |+| "y"))
+    
+    println("")
   }
   
-  import scala.language.implicitConversions
-  
-  implicit def toMonoidOp[A: Monoid](a: A): MonoidOp[A] = new MonoidOp[A] {
-    val F = implicitly[Monoid[A]]
-    val value = a
-  }
-  
-  println("Method Injection on Int: " + (3 |+| 6))
-  println("Method Injection on String: " + ("X" |+| "y"))
 }

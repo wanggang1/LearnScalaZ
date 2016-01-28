@@ -12,6 +12,19 @@ object Typeclasses102Equal {
   val yellow = TrafficLight("yellow")
   val green = TrafficLight("green")
   
+  /**
+   * Using scalaz Equal type class
+   */
   implicit val TrafficLightEqual: Equal[TrafficLight] = Equal.equal(_ == _)
+  
+  
+  def demo = {
+    println("============== Equal ====================")
+    
+    println("TrafficLight red =/= yellow -> " + (red =/= yellow))
+    println("TrafficLight green === green -> " + (green === green))
+    
+    println("")   
+  }
 
 }

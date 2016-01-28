@@ -25,59 +25,10 @@ object worksheet {
   //Enum
   'a' |-> 'e'                                     //> res4: List[Char] = List(a, b, c, d, e)
   'a' |=> 'e'                                     //> res5: scalaz.EphemeralStream[Char] = scalaz.EphemeralStreamFunctions$$anon$4
-                                                  //| @4404e0d3
+                                                  //| @3e694b3f
    
   //Equal
 	1 === 1                                   //> res6: Boolean = true
 	1 =/= 2                                   //> res7: Boolean = true
-
-	//Customized Equal
-  import Typeclasses102Equal._
-  
-  red =/= yellow                                  //> res8: Boolean = true
-  green === green                                 //> res9: Boolean = true
-
-  
-  //Truthy - Customized typeclass
-  import YesNoTypeclass.CanTruthy
-  import YesNoTypeclass.ToCanIsTruthyOps._
-  
-  implicit val intCanTruthy: CanTruthy[Int] = CanTruthy.truthys({
-     case 0 => false
-     case _ => true
-   })                                             //> intCanTruthy  : org.gwgs.learningscalaz.day01.YesNoTypeclass.CanTruthy[Int] 
-                                                  //| = org.gwgs.learningscalaz.day01.YesNoTypeclass$CanTruthy$$anon$1@3f255c01
-  
-  10.truthy                                       //> res10: Boolean = true
-  0.truthy                                        //> res11: Boolean = false
- 	 
- 	implicit def listCanTruthy[A]: CanTruthy[List[A]] = CanTruthy.truthys({
-     case Nil => false
-     case _   => true
-   })                                             //> listCanTruthy: [A]=> org.gwgs.learningscalaz.day01.YesNoTypeclass.CanTruthy[
-                                                  //| List[A]]
-   
-  implicit val nilCanTruthy: CanTruthy[scala.collection.immutable.Nil.type] = CanTruthy.truthys(_ => false)
-                                                  //> nilCanTruthy  : org.gwgs.learningscalaz.day01.YesNoTypeclass.CanTruthy[colle
-                                                  //| ction.immutable.Nil.type] = org.gwgs.learningscalaz.day01.YesNoTypeclass$Can
-                                                  //| Truthy$$anon$1@3f4fceb7
-  
-  List("foo", "bar").truthy                       //> res12: Boolean = true
-  Nil.truthy                                      //> res13: Boolean = false
-    
-  truthyIf (Nil) {"YEAH!"} {"NO!"}                //> res14: Any = NO!
-  
-  truthyIf (2 :: 3 :: 4 :: Nil) {"YEAH!"} {"NO!"} //> res15: Any = YEAH!
-  
-  implicit val booleanCanTruthy: CanTruthy[Boolean] = CanTruthy.truthys(identity)
-                                                  //> booleanCanTruthy  : org.gwgs.learningscalaz.day01.YesNoTypeclass.CanTruthy[
-                                                  //| Boolean] = org.gwgs.learningscalaz.day01.YesNoTypeclass$CanTruthy$$anon$1@2
-                                                  //| 7f074cb
-  
-  false.truthy                                    //> res16: Boolean = false
-  
-    
-  truthyIf (true) {"YEAH!"} {"NO!"}               //> res17: Any = YEAH!
-
 
 }
