@@ -39,22 +39,23 @@ object worksheet {
                                                   
   //using List as Applicative
   ^(List(1, 2, 3), List(10, 100, 100)) {_ * _}    //> res14: List[Int] = List(10, 100, 100, 20, 200, 200, 30, 300, 300)
+  (List(1, 2, 3) |@| List(10, 100, 100)) {_ * _}  //> res15: List[Int] = List(10, 100, 100, 20, 200, 200, 30, 300, 300)
   
   for {
   	x1 <- List(1, 2, 3)
   	x2 <- List(10, 100, 100)
-  } yield x1 * x2                                 //> res15: List[Int] = List(10, 100, 100, 20, 200, 200, 30, 300, 300)
+  } yield x1 * x2                                 //> res16: List[Int] = List(10, 100, 100, 20, 200, 200, 30, 300, 300)
   
   
  //Knight move on Chess board
  import ChessBoard._
- KnightPos(6, 2).move                             //> res16: List[org.gwgs.learningscalaz.day05.ChessBoard.KnightPos] = List(Knig
+ KnightPos(6, 2).move                             //> res17: List[org.gwgs.learningscalaz.day05.ChessBoard.KnightPos] = List(Knig
                                                   //| htPos(8,1), KnightPos(8,3), KnightPos(4,1), KnightPos(4,3), KnightPos(7,4),
                                                   //|  KnightPos(5,4))
- KnightPos(8, 1).move                             //> res17: List[org.gwgs.learningscalaz.day05.ChessBoard.KnightPos] = List(Knig
+ KnightPos(8, 1).move                             //> res18: List[org.gwgs.learningscalaz.day05.ChessBoard.KnightPos] = List(Knig
                                                   //| htPos(6,2), KnightPos(7,3))
- KnightPos(6, 2) canReachIn3 KnightPos(6, 1)      //> res18: Boolean = true
- KnightPos(6, 2) canReachIn3 KnightPos(7, 3)      //> res19: Boolean = false
+ KnightPos(6, 2) canReachIn3 KnightPos(6, 1)      //> res19: Boolean = true
+ KnightPos(6, 2) canReachIn3 KnightPos(7, 3)      //> res20: Boolean = false
  
 
 }
