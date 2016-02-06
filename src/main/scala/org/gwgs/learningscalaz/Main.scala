@@ -6,6 +6,8 @@ import org.gwgs.learningscalaz.day01.YesNoTypeclass
 import org.gwgs.learningscalaz.day02.ApplicativeOps
 import org.gwgs.learningscalaz.day03.TaggedType
 import org.gwgs.learningscalaz.day07.StatefulComputation
+import org.gwgs.learningscalaz.day07.ScalazEither
+import org.gwgs.learningscalaz.day07.ScalazValidation
 
 object Main {
   
@@ -28,6 +30,10 @@ object Main {
     TaggedType.demo
     
     StatefulComputation.demo
+    
+    ScalazEither.demo
+    
+    ScalazValidation.demo
   }
  
 }
