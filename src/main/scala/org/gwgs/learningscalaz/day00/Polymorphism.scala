@@ -3,7 +3,7 @@ package org.gwgs.learningscalaz.day00
 import scala.language.higherKinds
 import scala.language.implicitConversions
 
-object Polymorphism extends App {
+object Polymorphism {
   
   /**
    * Parametric polymorphism
