@@ -126,8 +126,8 @@ object Polymorphism {
     println("FoldLeft String: " + sum1(List("a", "b", "c")))
   
     //method injection
-    println("Method Injection on Int: " + (3 |+| 6))
-    println("Method Injection on String: " + ("W" |+| "y"))
+    println("Method Injection on Int: " + (3 |+| 6 |+| 9))
+    println("Method Injection on String: " + ("W" |+| "y" |+| "g" |+| "W"))
     
     println("")
   }

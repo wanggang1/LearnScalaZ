@@ -1,7 +1,6 @@
 package org.gwgs.learningscalaz.day04
 
 import scalaz._
-import Scalaz._
 
 object FunctorLaws {
   

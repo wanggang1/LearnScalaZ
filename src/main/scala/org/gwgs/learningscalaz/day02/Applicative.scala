@@ -15,15 +15,15 @@ object ApplicativeOps {
   }
 
   /**
-   * scalaz Allpy.lift2
+   * scalaz Appyy.lift2
    */
   val concatInOption = Apply[Option].lift2((_: Int) :: (_: List[Int]))
 
   def demo = {
     println("============== Applicative ===============")
                                                  
-    println("scalaz Allpy.lift2 - concatInOption(3.some, List(4, 5).some): " + concatInOption(3.some, List(4, 5).some) )
-    println("scalaz Allpy.lift2 - concatInOption(none[Int], List(4, 5).some): " + concatInOption(none[Int], List(4, 5).some) ) 
+    println("scalaz Apply.lift2 - concatInOption(3.some, List(4, 5).some): " + concatInOption(3.some, List(4, 5).some) )
+    println("scalaz Apply.lift2 - concatInOption(none[Int], List(4, 5).some): " + concatInOption(none[Int], List(4, 5).some) )
         
     println("Custom sequence - sequenceA(List(1.some, 2.some)): " + sequenceA(List(1.some, 2.some)) )
     println("Custom sequence - sequenceA(List(1.some, none, 2.some)): " + sequenceA(List(1.some, none, 2.some)) )
