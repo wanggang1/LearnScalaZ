@@ -1,13 +1,10 @@
 package org.gwgs.learningscalaz
 
-import org.gwgs.learningscalaz.day00.Polymorphism
-import org.gwgs.learningscalaz.day01.Typeclasses102Equal
-import org.gwgs.learningscalaz.day01.YesNoTypeclass
-import org.gwgs.learningscalaz.day02.ApplicativeOps
-import org.gwgs.learningscalaz.day03.TaggedType
-import org.gwgs.learningscalaz.day07.StatefulComputation
-import org.gwgs.learningscalaz.day07.ScalazEither
-import org.gwgs.learningscalaz.day07.ScalazValidation
+import org.gwgs.learningscalaz.day00._
+import org.gwgs.learningscalaz.day01._
+import org.gwgs.learningscalaz.day02._
+import org.gwgs.learningscalaz.day03._
+import org.gwgs.learningscalaz.day07._
 
 object Main {
   
@@ -16,24 +13,24 @@ object Main {
     println("============== Scalaz ==================")
     import scalaz.Scalaz._
     val a = List(1,2) |+| List(3,4)
-    println("Scalaz |+| " + a) 
+    println("Scalaz |+| concatenation: " + a)
     println("") 
     
-    Polymorphism.demo
+    //Polymorphism.demo
     
-    Typeclasses102Equal.demo
+    //Typeclasses102Equal.demo
     
-    YesNoTypeclass.demo
+    //YesNoTypeclass.demo
     
-    ApplicativeOps.demo
+    //ApplicativeOps.demo
     
-    TaggedType.demo
+    //TaggedType.demo
     
-    StatefulComputation.demo
+    //StatefulComputation.demo
     
-    ScalazEither.demo
+    //ScalazEither.demo
     
-    ScalazValidation.demo
+    //ScalazValidation.demo
   }
  
 }

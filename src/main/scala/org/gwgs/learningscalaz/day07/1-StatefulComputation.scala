@@ -33,6 +33,8 @@ object StatefulComputation {
   
   /**
    * How the existing state being passed to stackManip???
+    *   State has an apply function, which accepts Stack and
+    *   returns (Stack, A) using the function defined in pop and push
    * see scalaz.StateFunctions
    */
   def stackManip: State[Stack, Int] = for {
@@ -59,6 +61,9 @@ object StatefulComputation {
     
     val tuple2 = stackyStack(List(1, 2, 3))
     println(s"Current State: $tuple2")
+
+    val tuple3 = stackyStack(List(2, 2, 3))
+    println(s"Current State 2: $tuple3")
     
     println("")
   }
