@@ -5,6 +5,7 @@ import org.gwgs.learningscalaz.day01._
 import org.gwgs.learningscalaz.day02._
 import org.gwgs.learningscalaz.day03._
 import org.gwgs.learningscalaz.day07._
+import org.gwgs.learningscalaz.day08._
 
 object Main {
   
@@ -31,6 +32,12 @@ object Main {
     //ScalazEither.demo
     
     //ScalazValidation.demo
+
+    //RPNCalculator.demo
+
+    //ComposeMonadicFunction.demo
+
+    MakingMonads.demo
   }
  
 }
