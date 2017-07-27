@@ -15,12 +15,14 @@ object Readers {
     println(addStuff(3))
 
     /*
+     * Reader encapsulates a function A => B
+     *
      * Use Reader for dependency injection:
      * for {
-     *   domain <- Reader(depency => DomainOjbect)
+     *   domain <- Reader(dependency => DomainObject)
      * } yield domain
      */
-    val triple = Reader((i: Int) => i * 3)
+    val triple: Reader[Int, Int] = Reader((i: Int) => i * 3)
     val result1: Id.Id[Int] = triple(4)
     for {
       result <- triple(3)
