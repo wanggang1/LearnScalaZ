@@ -58,25 +58,45 @@ object ScalazValidation {
 
   val allJobs: Validation[NonEmptyList[String],List[Job]] = (jobNel1 |@| jobNel2 |@| jobNel3) {List(_, _, _)}
   val jobsFailed: Validation[NonEmptyList[String],List[Job]] = (jobNel1 |@| jobFailNel2 |@| jobFailNel3) {List(_, _, _)}
+
+  // sequencing
+  type ExceptionsOr[A] = ValidationNel[String, A]
+
+  val results: List[ExceptionsOr[Int]] = List(
+    "13".parseInt.leftMap(_.toString).toValidationNel,
+    "42".parseInt.leftMap(_.toString).toValidationNel
+  )
+
+  val results2: List[ExceptionsOr[Int]] = List(
+    "13".parseInt.leftMap(_.toString).toValidationNel,
+    "a".parseInt.leftMap(_.toString).toValidationNel,
+    "b".parseInt.leftMap(_.toString).toValidationNel
+  )
+
   
   def demo = {
-    println("============== Scalaz Either ===============")
+    println("============== Scalaz Validation ===============")
     
     println(s"event1: $event1")
     println(s"failure1: $failure2")
+    println()
     println(s"allFailures: $allFailures")
+    println(s"allFailures2: $allFailures2")
     println(s"allFailures == allFailures2: ${allFailures == allFailures2}")
+    println()
     println(s"event1Nel: $event1Nel")
     println(s"failure1Nel: $failure2Nel")
+    println()
     println(s"event1 == event1Nel: " + (event1 == event1Nel))
     println(s"allFailuresNel: $allFailuresNel")
     println(s"allEventsNel: $allEventsNel")
-    println("")
-
+    println()
     printResult(allJobs)
     printResult(jobsFailed)
-
-    println("")
+    println()
+    println(results.sequence)
+    println(results2.sequence)
+    println()
   }
 
   def printResult(result: ValidationNel[String, Any]): Unit = result match {

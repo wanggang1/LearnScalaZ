@@ -31,13 +31,13 @@ object Main {
     
     //ScalazEither.demo
     
-    //ScalazValidation.demo
+    ScalazValidation.demo
 
     //RPNCalculator.demo
 
     //ComposeMonadicFunction.demo
 
-    MakingMonads.demo
+    //MakingMonads.demo
   }
  
 }
