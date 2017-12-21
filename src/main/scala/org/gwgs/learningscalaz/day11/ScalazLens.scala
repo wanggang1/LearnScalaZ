@@ -2,7 +2,6 @@ package org.gwgs.learningscalaz.day11
 
 object ScalazLens {
   import scalaz._
-  import Scalaz._
   import Lens._
 
   case class Point(x: Double, y: Double)
@@ -27,14 +26,28 @@ object ScalazLens {
   val pointX: Lens[Point, Double] = lensu((a, value) => a.copy(x = value), _.x)
   val pointY: Point @> Double = lensu((a, value) => a.copy(y = value), _.y)
 
+  // turtlePosition >=> pointX, turtlePosition andThen pointX
+  // pointX <=< turtlePosition, pointX compose turtlePosition
   val turtleX: Lens[Turtle, Double] = turtlePosition >=> pointX
-  val turtleY: Turtle @> Double = turtlePosition >=> pointY
+  val turtleY: Turtle @> Double = pointY <=< turtlePosition
 
   def move(t: Turtle, dist: Double): Turtle = {
     val deltaX = dist * math.cos(t.heading)
     val deltaY = dist * math.sin(t.heading)
     val t1 = turtleX.set(t, turtleX.get(t) + deltaX)
     turtleY.set(t1, turtleY.get(t) + deltaY)
+  }
+
+  def move1(t: Turtle, dist: Double): Turtle = {
+    val deltaX = dist * math.cos(t.heading)
+    val deltaY = dist * math.sin(t.heading)
+
+    // =>= is a symbolic operator of mod
+    val incX: Turtle => Turtle = turtleX =>= {_ + deltaX}
+    val t1 = incX(t)
+
+    // mod
+    turtleY.mod(_ + deltaY, t1)
   }
 
   def demo: Unit = {
@@ -44,6 +57,7 @@ object ScalazLens {
     println(s"new turtle, $t1")
 
     println(move(t0, 10))
+    println(move1(t0, 10))
   }
 
 }
